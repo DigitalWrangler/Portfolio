@@ -1,0 +1,52 @@
+API ENDPOINTS
+---------------------------------
+---------------------------------
+
+http://localhost:3000/increment-view-count
+
+POST JSON = http://localhost:3000/increment-view-count
+
+{
+  "cookie": "13-5511231231231klsafsdf21"
+}
+
+
+
+return
+
+{
+	"message": "Cookie count incremented successfully"
+}
+
+
+Adds a visit or a count depending on the situation
+
+---------------------------------
+---------------------------------
+
+looks for significant users visits
+
+GET JSON = http://localhost:3000/user-visits/3
+
+{
+	"id": 3,
+	"cookie": "13-5511231231231klsafsdf21",
+	"first_visit": "2024-01-06T01:37:49.203Z",
+	"last_visit": "2024-01-06T01:37:49.203Z",
+	"visit_count": 1
+}
+--------------------------------
+--------------------------------
+
+
+Gets total count on how many users have visisted based on thier cookie
+
+GET JSON = http://localhost:3000/data
+
+
+return
+
+
+{
+	"totalViewCount": "5"
+}

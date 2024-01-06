@@ -1,0 +1,25 @@
+{
+  "name": "portfolio-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "install": "^0.13.0",
+    "npm": "^10.2.5",
+    "pg": "^8.11.3",
+    "preact": "^10.19.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
