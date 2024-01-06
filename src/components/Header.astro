@@ -2,6 +2,7 @@
 import Navigation from '../components/Navigation.astro'
 import { SkipLinks } from 'accessible-astro-components'
 import { Icon } from 'astro-icon'
+import ViewCount from '../components/ViewCount.astro';
 ---
 
 <header>
@@ -10,11 +11,8 @@ import { Icon } from 'astro-icon'
     <li class="menu-item">
       <a href="/">Home</a>
     </li>
-    <li class="menu-item">
-      <a href="/blog/">Blog</a>
-    </li>
     <li class="menu-item has-dropdown">
-      <button aria-haspopup="true" aria-expanded="false">Example Pages</button>
+      <button aria-haspopup="true" aria-expanded="false">Projects</button>
       <ul class="dropdown-menu">
         <li class="submenu-item">
           <a href="/mdx-page/">MDX Page</a>
@@ -28,7 +26,7 @@ import { Icon } from 'astro-icon'
       </ul>
     </li>
     <li class="menu-item">
-      <a href="https://accessible-astro.dev" title="external link" rel="external noopener noreferrer">External Link</a>
+      <a href="/Projects/">Contact/Info</a>
     </li>
     <li class="menu-item type-icon">
       <a href="https://github.com/markteekman/accessible-astro-starter" title="Go to the GitHub page">
@@ -36,8 +34,11 @@ import { Icon } from 'astro-icon'
       </a>
     </li>
   </Navigation>
+  <ViewCount></ViewCount>
+  <div class="view-counter">
+    Views: <span id="viewCount">Loading...</span>
+  </div>
 </header>
-
 <style lang="scss" is:global>
   @use '../assets/scss/base/outline' as *;
 
@@ -60,5 +61,20 @@ import { Icon } from 'astro-icon'
         }
       }
     }
-  }
+    .view-counter {
+    font-family: 'Courier New', monospace; // Digital-style font
+    color: #a020f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 20px; // Adjust as per your layout
+
+    // Optional: LED-like effect
+    text-shadow:
+      0 0 5px #a020f0,   // Light purple glow
+      0 0 10px #a020f0,  // Medium purple glow
+      0 0 20px #a020f0,  // Strong purple glow
+      0 0 40px #a020f0;  // Intense purple glow
+    }
+    }
 </style>
+

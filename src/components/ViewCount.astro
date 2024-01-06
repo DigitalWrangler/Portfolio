@@ -1,0 +1,33 @@
+<!-- ViewCounter.astro -->
+
+<script is:client>
+    // Initialize the viewCount variable
+    let viewCount = 0;
+  
+    // Function to increment the view count
+    async function incrementViewCount() {
+      try {
+        // Make a GET request to the /data endpoint
+        const response = await fetch('http://localhost:3000/data', {
+          method: 'GET',
+        });
+  
+        if (response.ok) {
+          // Parse the JSON response
+          const data = await response.json();
+          // Update the viewCount variable with the correct field name
+          viewCount = data.totalViewCount;
+          // Update the view count in the DOM
+          document.getElementById('viewCount').textContent = viewCount;
+        } else {
+          console.error('Failed to fetch view count');
+        }
+      } catch (error) {
+        console.error('Error fetching view count:', error);
+      }
+    }
+  
+    // Initial fetch to get the view count when the component loads
+    incrementViewCount();
+  </script>
+  

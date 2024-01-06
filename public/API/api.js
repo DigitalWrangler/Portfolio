@@ -1,0 +1,1 @@
+const express=require("express"),router=express.Router();router.get("/sample",((e,s)=>{s.json({message:"This is a sample API endpoint"})})),module.exports=router;

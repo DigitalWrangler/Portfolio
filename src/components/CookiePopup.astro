@@ -1,0 +1,82 @@
+<!-- CookiePopup.astro -->
+<div client:load>
+    <script type="module">
+      const popupElement = document.getElementById('cookie-popup');
+      const acceptButton = document.getElementById('accept-cookies');
+      const declineButton = document.getElementById('decline-cookies');
+  
+      // Function to set a cookie
+      function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+          const date = new Date();
+          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+  
+      // Function to generate a unique cookie value
+      function generateUniqueValue() {
+        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      }
+  
+      // Function to check if cookies have already been accepted
+      function hasAcceptedCookies() {
+        return localStorage.getItem('cookiesAccepted') === 'true';
+      }
+  
+      // Function to handle the Accept button click
+      async function acceptCookies() {
+        console.log('Accept button clicked');
+        localStorage.setItem('cookiesAccepted', 'true');
+        
+        // Generate a unique cookie value and set it
+        const cookieName = 'userCookie';  // The name of your cookie
+        const cookieValue = generateUniqueValue(); // Generate a unique value
+        setCookie(cookieName, cookieValue, 7); // Set cookie for 7 days
+  
+        popupElement.style.display = 'none';
+        await incrementViewCount(cookieValue);
+      }
+  
+      // Function to send a POST request to the server
+      async function incrementViewCount(cookieValue) {
+        console.log('Incrementing view count with cookie:', cookieValue);
+        try {
+          const response = await fetch('http://localhost:3000/increment-view-count', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cookie: cookieValue }),
+          });
+  
+          if (!response.ok) {
+            throw new Error('Failed to increment view count');
+          }
+        } catch (error) {
+          console.error('Error incrementing view count:', error);
+        }
+      }
+  
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!hasAcceptedCookies()) {
+          popupElement.style.display = 'block';
+        }
+  
+        acceptButton.addEventListener('click', acceptCookies);
+        declineButton.addEventListener('click', () => {
+          console.log('Decline button clicked');
+          popupElement.style.display = 'none';
+        });
+      });
+    </script>
+  
+    <div id="cookie-popup" style="display: none;">
+      <p>We use cookies...</p>
+      <button id="accept-cookies">Accept</button>
+      <button id="decline-cookies">Decline</button>
+    </div>
+  </div>
+  

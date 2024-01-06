@@ -1,34 +1,73 @@
 ---
-import { Icon } from 'astro-icon'
+import CookiePopup from "./CookiePopup.astro";
 
-const { src = '/astronaut-hero-img.webp' } = Astro.props
 ---
 
 <section class="hero my-24">
   <div class="container">
-    <div class="grid grid-cols-1 items-center gap-24 lg:grid-cols-2">
-      <div class="flex flex-col items-center gap-8 md:items-start">
-        <h1 class="text-center text-6xl md:text-left lg:text-8xl">
-          <slot><span class="text-gradient">Accessible</span> Starter for Astro</slot>
+    <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-24">
+      <!-- Left Column -->
+      <div class="flex flex-col items-center lg:items-start gap-8">
+        <h1 class="text-center lg:text-left text-6xl lg:text-8xl">
+          <slot><span class="text-gradient">Vinny Vegas</span> Starter for Astro</slot>
         </h1>
         <div class="flex flex-col gap-3 min-[500px]:flex-row">
-          <a class="button has-icon" href="https://github.com/markteekman/accessible-astro-starter">
-            <Icon pack="ion" name="star-outline" />
-            Star on GitHub
-          </a>
-          <a
-            class="button has-icon color-secondary"
-            href="https://github.com/markteekman/accessible-astro-starter/blob/main/README.md"
-          >
-            <Icon pack="ion" name="bookmark-outline" />
-            Read the Docs
-          </a>
+          <!-- Additional content here -->
         </div>
       </div>
-      <img class="hidden lg:block" src={src} alt="" decoding="async" />
+
+      <!-- Right Column - Code Editor -->
+      <div class="code-editor">
+        <pre id="code-output"></pre>
+        <div class="code-editor-buttons">
+          <button onclick="writeAboutMe()">About Me!</button>
+          <button onclick="writeHobbies()">Hobbies</button>
+          <button onclick="writeWhyCode()">Why Code?</button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <script is:client type="module">
+    import runTypingEffect from '/js/typingEffect.jsx';
+    runTypingEffect();
+  </script>
+  <section class="photo-grid my-24">
+    <div class="container">
+      <h2 class="text-center text-4xl mb-8">My Portfolio Gallery</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Add your photos here -->
+        <img src="/vinnyaoki (1).svg" alt="salsashirt" class="w-full h-auto">
+        <!-- Add more photos as needed -->
+      </div>
+    </div>
+  </section>
+</section>
+<CookiePopup></CookiePopup>
+<!-- New Section for Programming Languages -->
+<section class="programming-languages my-24">
+  <div class="container">
+    <h2 class="text-center text-4xl mb-8">Programming Languages & Tools</h2>
+    <div class="icon-container text-center">
+      <i class="devicon-python-plain"></i>
+      <i class="devicon-javascript-plain"></i>
+      <i class="devicon-linux-plain"></i> <!-- Substitute for Arch Linux -->
+      <i class="devicon-go-plain"></i>
+      <i class="devicon-docker-plain"></i>
+      <i class="devicon-php-plain"></i>
+      <i class="devicon-mongodb-plain"></i>
+      <i class="devicon-firebase-plain"></i>
+      <i class="devicon-mysql-plain"></i>
+      <i class="devicon-nodejs-plain"></i>
     </div>
   </div>
 </section>
+
+<!-- Include Devicon CSS -->
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon/devicon.min.css">
+</head>
+
 
 <style lang="scss">
   .text-gradient {
@@ -44,4 +83,63 @@ const { src = '/astronaut-hero-img.webp' } = Astro.props
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  /* Add this to your global stylesheet or inside a <style> tag in index.astro */
+    .code-editor {
+  background-color: #282c34; /* Dark background */
+  color: #abb2bf; /* Light text */
+  font-family: 'Courier New', monospace;
+  padding: 30px; /* Increased padding */
+  border-radius: 10px; /* Adjusted border radius */
+
+  font-size: 1.2em; /* Increased font size */
+  width: 100%; /* Full width */
+  max-width: 800px; /* Maximum width */
+  height: 400px; /* Increased height for a rectangular shape */
+}
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // Aligns the code editor to the bottom
+  height: 100%; // Full height of its parent container
+}
+.code-editor-buttons {
+  display: flex;
+  justify-content: space-around; // Distribute buttons evenly
+  margin-top: 20px; // Space above the buttons
+}
+
+.code-editor-buttons button {
+  padding: 10px 20px;
+  background-color: var(--primary-200); // Adjust color as needed
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--secondary-500); // Change color on hover
+  }
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap; /* Wrap text */
+  height: 100%; /* Full height of the parent container */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+.programming-languages .icon-container i {
+    font-size: 5.5rem; // Adjust the icon size
+    margin: 0 10px; // Spacing between icons
+  }
+  .photo-grid img {
+  border-radius: 10px; /* Rounded corners for images */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow for depth */
+  transition: transform 0.3s ease-in-out; /* Smooth transform on hover */
+}
+
+.photo-grid img:hover {
+  transform: scale(1.05); /* Slightly enlarge images on hover */
+}
+
 </style>
